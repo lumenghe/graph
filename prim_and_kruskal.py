@@ -38,3 +38,17 @@ class MatrixGraph:
                 edges.append((node_1, node_2, cost))
         edges = sorted(edges, key=itemgetter(2))
         return edges
+
+    def display(self, filename):
+        with tempfile.NamedTemporaryFile(delete=False) as tmpf:
+            tmpf.write("graph Prim{\n node [fontname=\"Arial\"];\n")
+            for node in xrange(len(self.matrix)):
+                tmpf.write("node%d [label=\"%d\" style=filled fillcolor=white];\n" % (node, node))
+            for (node_1, node_2, cost) in self.tree_edges:
+                tmpf.write("node%d--node%d [label=\"%d\"];\n" % (node_1, node_2, cost))
+            tmpf.write("}")
+
+        cmd = "dot -Tpng -o %s %s" % (filename, tmpf.name)
+        args = shlex.split(cmd)
+        subprocess.Popen(args)
+        return
