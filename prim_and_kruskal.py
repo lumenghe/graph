@@ -52,3 +52,10 @@ class MatrixGraph:
         args = shlex.split(cmd)
         subprocess.Popen(args)
         return
+
+    def get_neighbors(self, node):
+        for n in range(len(self.matrix)):
+            if n < node and self.matrix[n][node]:
+                yield n, self.matrix[n][node]
+            elif n > node and self.matrix[node][n]:
+                yield n, self.matrix[node][n]
