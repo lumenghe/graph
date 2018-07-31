@@ -72,3 +72,16 @@ class MatrixGraph:
             self.total_cost += new_edge[2]
         self.tree.append(new_node)
         return priority_queue
+
+    def prim(self):
+        priority_queue = self.create_priority_queue(0)
+        while priority_queue:
+            min_cost = -1
+            min_edge = None
+            for (node_1, node_2, cost) in priority_queue:
+                if min_cost==-1 or min_cost>cost:
+                    min_cost = cost
+                    min_edge = (node_1, node_2, cost)
+            new_node = min_edge[0] if min_edge[1] in self.tree else min_edge[1]
+            self.update_priority_queue(priority_queue, new_node, min_edge)
+        return self.total_cost
