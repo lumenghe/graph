@@ -59,3 +59,16 @@ class MatrixGraph:
                 yield n, self.matrix[n][node]
             elif n > node and self.matrix[node][n]:
                 yield n, self.matrix[node][n]
+
+    def update_priority_queue(self, priority_queue, new_node, new_edge):
+        for neighbor, cost in self.get_neighbors(new_node):
+            if neighbor in self.tree:
+                priority_queue.remove((min(new_node, neighbor), max(new_node, neighbor), cost))
+            else:
+                priority_queue.append((min(new_node, neighbor), max(new_node, neighbor), cost))
+
+        if new_edge:
+            self.tree_edges.append(new_edge)
+            self.total_cost += new_edge[2]
+        self.tree.append(new_node)
+        return priority_queue
