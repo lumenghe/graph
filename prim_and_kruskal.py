@@ -85,3 +85,18 @@ class MatrixGraph:
             new_node = min_edge[0] if min_edge[1] in self.tree else min_edge[1]
             self.update_priority_queue(priority_queue, new_node, min_edge)
         return self.total_cost
+
+    def prim_with_heapqueue(self):
+        heapqueue = self.create_heapqueue(0)
+        while heapqueue:
+            new_edge = heapq.heappop(heapqueue)
+            (cost, node_1, node_2) = new_edge
+            if (node_1 in self.tree and node_2 not in self.tree) or (node_2 in self.tree and node_1 not in self.tree):
+                new_node = node_1 if node_2 in self.tree else node_2
+                for new_neighbor, new_cost in self.get_neighbors(new_node):
+                    if new_neighbor not in self.tree:
+                        heapq.heappush(heapqueue, (new_cost, new_node, new_neighbor))
+                self.tree.append(new_node)
+                self.tree_edges.append((node_1, node_2, cost))
+                self.total_cost += cost
+        return self.total_cost
