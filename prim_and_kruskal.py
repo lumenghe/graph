@@ -100,3 +100,19 @@ class MatrixGraph:
                 self.tree_edges.append((node_1, node_2, cost))
                 self.total_cost += cost
         return self.total_cost
+
+    def kruskal(self):
+        edges = self.create_edges()
+        while edges:
+            (node_1, node_2, cost) = edges.pop(0)
+            if not (self.colors[node_1]== self.colors[node_2]):
+                node_color_1 = self.colors[node_1]
+                node_color_2 = self.colors[node_2]
+                new_color = min(node_color_1, node_color_2)
+                for node in xrange(len(self.matrix)):
+                    if self.colors[node]==node_color_1 or self.colors[node]==node_color_2:
+                        self.colors[node] = new_color
+                self.tree_edges.append((node_1, node_2, cost))
+                self.total_cost += cost
+        return self.total_cost
+
