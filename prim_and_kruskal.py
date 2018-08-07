@@ -116,3 +116,21 @@ class MatrixGraph:
                 self.total_cost += cost
         return self.total_cost
 
+
+if __name__=='__main__':
+
+    mylist = []
+    nodes_numbers = 10
+    for line in xrange(nodes_numbers):
+        adjacency = []
+        for neighbor in xrange(nodes_numbers):
+            adjacency.append(numpy.random.choice([i for i in xrange(1, nodes_numbers+1)]) if line<neighbor else 0)
+        mylist.append(adjacency)
+    mg = MatrixGraph(mylist)
+    print (mg.prim())
+    mg.display('prim.png')
+    print (mg.kruskal())
+    mg.display('kruska.png')
+    print (mg.prim_with_heapqueue())
+    mg.display('heapqueue.png')
+
