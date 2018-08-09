@@ -48,3 +48,10 @@ class MatrixGraph:
             count_display += 1
         return
 
+
+class ListNode:
+    def __init__(self, num, adjacency_list=[]):
+        self.id = num
+        self.adjacency = adjacency_list
+        self.distance = None
+        self.color = "white"
