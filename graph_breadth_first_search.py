@@ -25,3 +25,26 @@ class MatrixGraph:
         args = shlex.split(cmd)
         subprocess.Popen(args)
         return
+
+    def breadth_first_search(self, index, filenamebase="test"):
+        self.reset_color_and_distance()
+        self.distance[index] = 0
+        queue = [index]
+        count_display = 0
+        while queue:
+            node = queue.pop(0)
+            self.color[node] = "green"
+            self.display(filenamebase + str(count_display) + ".png")
+            count_display += 1
+            for i,value in enumerate(self.matrix[node]):
+                if value and self.color[i] == "white":
+                    self.color[i] = "grey"
+                    self.distance[i] = self.distance[node] + 1
+                    queue.append(i)
+                    self.display(filenamebase + str(count_display) + ".png")
+                    count_display += 1
+            self.color[node] = "red"
+            self.display(filenamebase + str(count_display) + ".png")
+            count_display += 1
+        return
+
