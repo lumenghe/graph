@@ -55,3 +55,14 @@ class ListNode:
         self.adjacency = adjacency_list
         self.distance = None
         self.color = "white"
+
+class ListGraph:
+    def __init__(self, matrix):
+        self.nodes = [ListNode(i) for i in range(len(matrix))]
+        for i,line in enumerate(matrix):
+            adjacency_list = []
+            for j, value in enumerate(line):
+                if value:
+                    adjacency_list.append(self.nodes[j])
+            self.nodes[i].adjacency = adjacency_list
+        self.reset_color_and_distance()
