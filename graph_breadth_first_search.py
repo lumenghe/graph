@@ -66,3 +66,8 @@ class ListGraph:
                     adjacency_list.append(self.nodes[j])
             self.nodes[i].adjacency = adjacency_list
         self.reset_color_and_distance()
+
+    def reset_color_and_distance(self):
+        for node in self.nodes:
+            node.distance = None
+            node.color = "white"
