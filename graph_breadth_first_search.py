@@ -71,3 +71,18 @@ class ListGraph:
         for node in self.nodes:
             node.distance = None
             node.color = "white"
+
+    def display(self, filename):
+        with tempfile.NamedTemporaryFile(delete=False) as tmpf:
+            tmpf.write("graph BST {\nnode [fontname=\"Arial\"];\n")
+            for node in self.nodes:
+                label = str(node.distance) if node.distance else "*"
+                tmpf.write("node%d [label=\"%s\" style=filled fillcolor=%s];\n" % (node.id, label, node.color))
+                for neighbor in node.adjacency:
+                  if neighbor.id > node.id:
+                        tmpf.write("node%d -- node%d;\n" % (node.id,neighbor.id))
+            tmpf.write("}")
+        cmd =  "dot -Tpng -o %s %s" % (filename, tmpf.name)
+        args = shlex.split(cmd)
+        subprocess.Popen(args)
+        return
