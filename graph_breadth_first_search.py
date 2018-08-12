@@ -86,3 +86,27 @@ class ListGraph:
         args = shlex.split(cmd)
         subprocess.Popen(args)
         return
+
+    def breadth_first_search(self, index, filenamebase="testlist"):
+        self.reset_color_and_distance()
+        root = self.nodes[index]
+        root.distance = 0
+        queue = [root]
+        count_display = 0
+        while queue:
+            node = queue.pop(0)
+            node.color = "green"
+            self.display(filenamebase + str(count_display) + ".png")
+            count_display += 1
+            for neighbor in node.adjacency:
+                if neighbor.color == "white":
+                    neighbor.color = "grey"
+                    neighbor.distance = node.distance + 1
+                    queue.append(neighbor)
+                    self.display(filenamebase + str(count_display) + ".png")
+                    count_display += 1
+            node.color = "red"
+            self.display(filenamebase + str(count_display) + ".png")
+            count_display += 1
+        return
+
