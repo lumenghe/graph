@@ -110,3 +110,32 @@ class ListGraph:
             count_display += 1
         return
 
+
+if __name__=='__main__':
+    example_matrix = np.zeros(shape=(8, 8))
+    example_matrix[0][1] = 1
+    example_matrix[1][0] = 1
+    example_matrix[0][4] = 1
+    example_matrix[4][0] = 1
+    example_matrix[5][1] = 1
+    example_matrix[1][5] = 1
+    example_matrix[2][5] = 1
+    example_matrix[5][2] = 1
+    example_matrix[5][6] = 1
+    example_matrix[6][5] = 1
+    example_matrix[2][3] = 1
+    example_matrix[3][2] = 1
+    example_matrix[2][6] = 1
+    example_matrix[6][2] = 1
+    example_matrix[3][6] = 1
+    example_matrix[6][3] = 1
+    example_matrix[3][7] = 1
+    example_matrix[7][3] = 1
+    example_matrix[6][7] = 1
+    example_matrix[7][6] = 1
+
+    g = MatrixGraph(example_matrix)
+    g.breadth_first_search(3)
+
+    h = ListGraph(example_matrix)
+    h.breadth_first_search(3)
